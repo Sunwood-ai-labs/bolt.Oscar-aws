@@ -1,5 +1,5 @@
 ---
-title: bolt.Oscar
+title: bolt.Oscar-aws
 emoji: 🦀
 colorFrom: green
 colorTo: blue
@@ -12,7 +12,7 @@ license: mit
 
 <p align="center">
   <img src="docs/bolt.Oscar.png" width="100%">
-  <h1 align="center">🌟 bolt.Oscar 🌟</h1>
+  <h1 align="center">🌟 bolt.Oscar-aws 🌟</h1>
 </p>
 <p align="center">
   <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws">
@@ -43,196 +43,141 @@ license: mit
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/Sunwood-ai-labs/bolt.Oscar-aws">
 </p>
 <h2 align="center">
-  ～ AI-Powered Automated Repository Management Template ～
+  ～ Bolt.new AWS Deployment Automation Template ～
 
 <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/blob/main/README.md"><img src="https://img.shields.io/badge/ドキュメント-日本語-white.svg" alt="JA doc"/></a>
 <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/blob/main/docs/README.en.md"><img src="https://img.shields.io/badge/english-document-white.svg" alt="EN doc"></a>
 </h2>
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python" alt="Python">
-  <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai" alt="OpenAI">
-  <img src="https://img.shields.io/badge/Gemini-8E75B2?style=for-the-badge&logo=google" alt="Google Gemini">
-  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git" alt="Git">
+  <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws" alt="AWS">
+  <img src="https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform" alt="Terraform">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker" alt="Docker">
   <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github" alt="GitHub">
   <img src="https://img.shields.io/badge/Actions-2088FF?style=for-the-badge&logo=github-actions" alt="GitHub Actions">
-  <img src="https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml" alt="YAML">
-  <img src="https://img.shields.io/badge/pip-3775A9?style=for-the-badge&logo=pypi" alt="pip">
-  <img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown" alt="Markdown">
-  <img src="https://img.shields.io/badge/GitHub_API-181717?style=for-the-badge&logo=github" alt="GitHub API">
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit" alt="Streamlit">
 </p>
-<p align="center">
-  <a href="https://github.com/Sunwood-ai-labs/AIRA">
-    <img src="https://img.shields.io/badge/AIRA-FF4500?style=for-the-badge&logo=github" alt="AIRA">
-  </a>
-  <a href="https://github.com/Sunwood-ai-labs/IRIS">
-    <img src="https://img.shields.io/badge/IRIS-9370DB?style=for-the-badge&logo=github" alt="IRIS">
-  </a>
-</p>
-
 
 > [!IMPORTANT]
-> bolt.Oscar is a template repository developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  The majority of the release notes, README, and commit messages were generated using the latest AI technology.
+>  bolt.Oscar is a repository developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  Most of the release notes, README, and commit messages were generated using the latest AI technology.
 
 ## 🚀 Project Overview
 
-bolt.Oscar is an innovative **AI repository starter kit** integrating AIRA and IRIS. This repository aims to dramatically improve developer efficiency by providing the structure and workflow for AI development projects leveraging LLMs. Version: `v1.3.0`
+bolt.Oscar-aws is an infrastructure automation template for rapidly deploying the AI-driven development environment, Bolt.new, on AWS. This repository uses Terraform to provision AWS resources and deploys a Streamlit application on ECS Fargate. Version 0.1.0 automates the provisioning of AWS resources and the deployment of the Streamlit application.
 
 
 ## 🆕 Latest News
 
-- 🎉 **v1.3.0 Release**: Created the basic structure for a Streamlit app, improved the design of the README file, fixed several bugs, and updated the documentation. The Streamlit app now includes functionality to load and display the README.md file. Error handling has been added for cases where the README.md file is missing.  Furthermore, we've added a collaborator addition script for GitHub repositories, an automated synchronization workflow with Hugging Face Hub, and an automated deployment workflow to PyPI.
+- 🎉 **v0.1.0 Release**: Added automatic deployment of Streamlit applications using AWS ECS Fargate.  It automatically creates and configures VPC, subnets, internet gateway, security groups, ALB, ECS cluster, ECS service, and task definitions using Terraform. `app.py` is the entry point for the Streamlit application, and `requirements.txt` lists the necessary libraries.  `whitelist.csv` specifies the IP addresses allowed to access the ALB, and `terraform.tfvars` allows customization of settings such as AWS region, project name, and container image. A CloudWatch log group is created to monitor application logs.
 
 
 ## ✨ Main Features
 
-1. **Integrated AI Toolset**: Provides the functionality of AIRA and IRIS in a single package.
-2. **Ready to Use**: Easily create a repository with a high-quality initial structure by using it as a template.
-3. **Automated Development Workflow**: Automation of commit message generation, release note creation, and issue management.
-4. **Multilingual Support**: Automated translation of the README supports international project deployment.
-5. **Flexible Customization**: Easily adaptable to the needs of your project.
-6. **Automated Collaborator Invitation**: Collaborator invitation script using the GitHub API.
-7. **Streamlit App**: A basic Streamlit application that displays the README.md file.
+- Automatic deployment of Streamlit applications using AWS ECS Fargate
+- Infrastructure as Code using Terraform
+- Secure network configuration and load balancing
+- Logging with CloudWatch
 
 
 ## 🔧 How to Use
 
-### Running the Streamlit App
-1. Install the necessary packages with `pip install -r requirements.txt`.
-2. Run `streamlit run app.py`.
+### Prerequisites
+- AWS CLI installed and configured
+- Terraform installed
+- Docker environment prepared
 
-### AIRA Example:
+### Deployment Steps
+
+1. Clone the repository:
 ```bash
-aira --mode sourcesage commit  --config=.aira\config.dev.commit.yml --ss-model-name="gpt-4o-mini" --llm-output="llm_output.md"
+git clone https://github.com/Sunwood-ai-labs/bolt.Oscar-aws
+cd bolt.Oscar-aws
 ```
 
-### IRIS Example:
+2. Initialize Terraform:
+```bash
+cd Terraform
+terraform init
+```
 
-Refer to the documentation for each component for detailed usage instructions.
+3. Review the configuration:
+```bash
+terraform plan
+```
+
+4. Execute the deployment:
+```bash
+terraform apply
+```
+
+## 📦 Directory Structure
+
+```plaintext
+├─ Terraform/
+│  ├─ main.tf          # Main Terraform configuration
+│  ├─ outputs.tf       # Output value definitions
+│  ├─ terraform.tfvars # Variable value settings
+│  ├─ variables.tf     # Variable definitions
+│  ├─ whitelist.csv    # IP whitelist
+├─ app.py              # Streamlit application
+├─ requirements.txt
+├─ README.md
+```
+
+## 🌿 Configuration Customization
+
+### `terraform.tfvars` Example:
+```hcl
+aws_region      = "ap-northeast-1"
+project_name    = "bolt-oscar-app"
+vpc_cidr        = "10.0.0.0/16"
+container_image = "makisunwood/bolt:latest"
+# container_image = "498218886114.dkr.ecr.ap-northeast-1.amazonaws.com/neko-neko-ai-app:latest"
+task_cpu        = "256"
+task_memory     = "512"
+app_count       = 1
+```
+
+### `whitelist.csv` Configuration:
+Manage IP addresses allowed access by editing `whitelist.csv`.
 
 
-## 📦 Installation Instructions
-
-1. Use this repository as a template to create a new repository.
-2. Clone the repository locally.
-3. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Customize the AIRA and IRIS configuration files.
-5. Check the GitHub Actions settings and configure environment variables as needed.
-6. Open the `.github/release_notes/.sourcesage_releasenotes_iris.yml` file and change the value of `repo-name:` to the name of your new repository.
-
-
-## 🌿 Environment Setup
-
-To set up the bolt.Oscar environment, follow these steps:
-
-1. Create a virtual environment:
-   ```bash
-   python3 -m venv .venv
-   ```
-   This creates a virtual environment in the `.venv` directory.
-
-2. Activate the virtual environment:
-   ```bash
-   source .venv/bin/activate  # Linux/macOS
-   .venv\Scripts\activate  # Windows
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-These steps will prepare the development environment for bolt.Oscar.
-
-
-## 📚 Main Components
-
-### 🤖 [AIRA (AI-Integrated Repository for Accelerated Development)](https://github.com/Sunwood-ai-labs/AIRA)
-- Automated repository creation
-- Automated commit message generation
-
-### 🌈 [IRIS (Intelligent Repository Issue Solver)](https://github.com/Sunwood-ai-labs/IRIS)
-- Automated issue classification
-- Automated solution suggestions
-- Automated release note generation
-- Automated README translation
-
-## 🤝 Automated Collaborator Invitation
-
-bolt.Oscar includes a script to automatically invite collaborators to the GitHub repository.  It can be used with the following steps:
-
-1. Create a `.env` file and set the necessary tokens:
-   ```
-   # GitHub access token (for inviting collaborators)
-   GITHUB_TOKEN=your_github_personal_access_token_here
-
-   # The following are examples of tokens that may be used for other functions.  It's convenient to list them for later use.
-   # GITHUB_ACCESS_TOKEN=ghp_xxxxx
-   # YOUR_PERSONAL_ACCESS_TOKEN_IRIS=ghp_yyyyy
-   # GEMINI_API_KEY=AIzzzzz
-   ```
-
-   Note: Include the `.env` file in `.gitignore` to prevent it from being committed to the repository.
-
-2. Run the following command to invite collaborators:
-   ```bash
-   python .github/github_add_collaborator.py Sunwood-ai-labs/bolt.Oscar-aws username_to_invite
-   ```
-
-   Replace `username_to_invite` with the GitHub username you want to invite.
-
-3. Once the script executes successfully, a collaborator invitation will be sent to the specified user.
-
-Precautions:
-- This script requires the GitHub token to have appropriate permissions (the `repo` scope).
-- When using it for an organization's repository, ensure that appropriate permissions are granted in the organization's settings.
-- For security, regularly update the token and grant only the minimum necessary permissions.
-- Never commit information including the `.env` file or tokens to a public repository.
-
-This feature simplifies the process of adding new contributors to the project.  It allows you to efficiently expand your team while maintaining security.
-
-## 🐈 Process Flow
-
+## 🐈 Architecture
 
 ```mermaid
-%%{init:{'theme':'base','themeVariables':{'primaryColor':'#024959','primaryTextColor':'#F2C335','primaryBorderColor':'#F2AE30','lineColor':'#A1A2A6','secondaryColor':'#593E25','tertiaryColor':'#F2C335','noteTextColor':'#024959','noteBkgColor':'#F2C335','textColor':'#024959','fontSize':'18px'}}}%%
-
-graph LR
-    A[Start] --> B[Repository Conception & Naming]
-    B -->|Human Action| C[bolt.Oscar Repository Initialization]
-    C -->|Automated| D[Development Work]
-    D -->|Human Action| E[AIRA Automated Commits]
-    E --> H[IRIS Release Note Generation]
-    H --> I[IRIS Documentation Translation]
-    I --> J[Release]
-    J --> K[End]
-
-    class B,D,G human;
-    class E aira;
-    class F,H,I iris;
-    class C auto;
-    class A,J,K process;
-
+graph TB
+    A[Internet] --> B[Application Load Balancer]
+    B --> C[ECS Fargate Service]
+    C --> D[Task Definition]
+    D --> E[Container]
+    E --> F[Streamlit App]
+    
+    subgraph VPC
+    B
+    C
+    D
+    E
+    F
+    end
 ```
-
-
 
 ## 🤝 Contributions
 
-bolt.Oscar welcomes contributions from the community as an open-source project.  Please help improve this template repository through bug reports, feature requests, and pull requests.
+1. Fork this repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Create a pull request
 
 ## 📄 License
 
-bolt.Oscar is released under the [MIT License](LICENSE).
+bolt.Oscar-aws is released under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgements
 
-In developing bolt.Oscar, we have drawn inspiration from many open-source projects.  We especially thank the developers of AIRA and IRIS.  We also thank iris-s-coon and Maki.
+- Thanks to the [Bolt.new](https://github.com/stackblitz/bolt.new) team
+- Inspired by the AWS community for Terraform module development
 
 ---
 
-bolt.Oscar is an excellent starter kit for achieving an AI-driven development process.  Let's start developing innovative AI projects based on this template!
-
-```
+Achieve rapid AWS deployment of Bolt.new with bolt.Oscar-aws!

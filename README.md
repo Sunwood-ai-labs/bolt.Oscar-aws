@@ -63,37 +63,21 @@ license: mit
 
 ## 🚀 プロジェクト概要
 
-bolt.Oscar-awsは、AI駆動の開発環境であるBolt.newをAWS上で迅速に展開するためのインフラストラクチャ自動化テンプレートです。このリポジトリは、以下の機能を提供します：
+bolt.Oscar-awsは、AI駆動の開発環境であるBolt.newをAWS上で迅速に展開するためのインフラストラクチャ自動化テンプレートです。このリポジトリは、Terraformを用いてAWSリソースのプロビジョニングを行い、ECS Fargate上でStreamlitアプリケーションをデプロイします。  バージョン0.1.0では、AWSリソースのプロビジョニングとStreamlitアプリケーションのデプロイを自動化します。
 
-1. **AWS ECS Fargateを使用した自動デプロイ**
-2. **Terraform による完全なインフラストラクチャのコード化**
-3. **セキュアなネットワーク構成とロードバランシング**
-4. **自動スケーリングとモニタリング**
 
 ## 🆕 最新情報
 
-- 🎉 **v1.3.0リリース**: 
-  - AWS ECS Fargateデプロイメントの自動化
-  - Terraformモジュールの整備
-  - セキュリティグループとネットワーク設定の最適化
-  - CloudWatchによるロギング機能の追加
+- 🎉 **v0.1.0リリース**: AWS ECS Fargateを使用したStreamlitアプリケーションの自動デプロイ機能を追加しました。Terraformを用いてVPC、サブネット、インターネットゲートウェイ、セキュリティグループ、ALB、ECSクラスター、ECSサービス、タスク定義などを自動的に作成・設定します。`app.py`はStreamlitアプリケーションのエントリーポイント、`requirements.txt`には必要なライブラリがリストアップされています。`whitelist.csv`でALBへのアクセスを許可するIPアドレスを指定し、`terraform.tfvars`でAWSリージョン、プロジェクト名、コンテナイメージなどの設定をカスタマイズできます。CloudWatchロググループが作成され、アプリケーションログを監視できます。
+
 
 ## ✨ 主な機能
 
-1. **インフラストラクチャ自動化**:
-   - Terraformを使用したAWSリソースの自動プロビジョニング
-   - ECS Fargateによるコンテナ化アプリケーションの運用
-   - Application Load Balancerによる負荷分散
+- AWS ECS Fargateを使用したStreamlitアプリケーションの自動デプロイ
+- Terraformによるインフラストラクチャのコード化
+- セキュアなネットワーク構成とロードバランシング
+- CloudWatchによるロギング
 
-2. **セキュリティ対策**:
-   - VPCとサブネットの適切な設計
-   - セキュリティグループによるアクセス制御
-   - IAMロールとポリシーの最小権限原則の実装
-
-3. **モニタリングと運用**:
-   - CloudWatchによるログ管理
-   - アラートとメトリクスの設定
-   - 自動スケーリング機能
 
 ## 🔧 使用方法
 
@@ -136,25 +120,27 @@ terraform apply
 │  ├─ variables.tf     # 変数の定義
 │  ├─ whitelist.csv    # IPホワイトリスト
 ├─ app.py              # Streamlitアプリケーション
-├─ README.md
 ├─ requirements.txt
+├─ README.md
 ```
 
 ## 🌿 設定カスタマイズ
 
-### terraform.tfvars の設定例:
+### `terraform.tfvars` の設定例:
 ```hcl
 aws_region      = "ap-northeast-1"
 project_name    = "bolt-oscar-app"
 vpc_cidr        = "10.0.0.0/16"
-container_image = "your-docker-image:latest"
+container_image = "makisunwood/bolt:latest"
+# container_image = "498218886114.dkr.ecr.ap-northeast-1.amazonaws.com/neko-neko-ai-app:latest"
 task_cpu        = "256"
 task_memory     = "512"
 app_count       = 1
 ```
 
-### IPホワイトリストの設定:
+### `whitelist.csv` の設定:
 `whitelist.csv` を編集してアクセス許可するIPアドレスを管理できます。
+
 
 ## 🐈 アーキテクチャ
 
