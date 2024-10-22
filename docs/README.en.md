@@ -59,41 +59,25 @@ license: mit
 </p>
 
 > [!IMPORTANT]
->  bolt.Oscar was developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  A significant portion of the release notes, README, and commit messages were generated using the latest AI technologies.
+>  bolt.Oscar is a repository developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  Most of the release notes, README, and commit messages were generated using the latest AI technology.
 
 ## 🚀 Project Overview
 
-bolt.Oscar-aws is an infrastructure automation template for rapidly deploying the AI-driven development environment Bolt.new on AWS. This repository provides the following features:
+bolt.Oscar-aws is an infrastructure automation template for rapidly deploying the AI-driven development environment, Bolt.new, on AWS. This repository uses Terraform to provision AWS resources and deploys a Streamlit application on ECS Fargate. Version 0.1.0 automates the provisioning of AWS resources and the deployment of the Streamlit application.
 
-1. **Automated deployment using AWS ECS Fargate**
-2. **Fully code-defined infrastructure using Terraform**
-3. **Secure network configuration and load balancing**
-4. **Auto-scaling and monitoring**
 
 ## 🆕 Latest News
 
-- 🎉 **v1.3.0 released**:
-  - Automated AWS ECS Fargate deployment
-  - Improved Terraform modules
-  - Optimized security groups and network settings
-  - Added CloudWatch logging
+- 🎉 **v0.1.0 Release**: Added automatic deployment of Streamlit applications using AWS ECS Fargate.  It automatically creates and configures VPC, subnets, internet gateway, security groups, ALB, ECS cluster, ECS service, and task definitions using Terraform. `app.py` is the entry point for the Streamlit application, and `requirements.txt` lists the necessary libraries.  `whitelist.csv` specifies the IP addresses allowed to access the ALB, and `terraform.tfvars` allows customization of settings such as AWS region, project name, and container image. A CloudWatch log group is created to monitor application logs.
 
-## ✨ Key Features
 
-1. **Infrastructure Automation**:
-   - Automated provisioning of AWS resources using Terraform
-   - Containerized application operation with ECS Fargate
-   - Load balancing with Application Load Balancer
+## ✨ Main Features
 
-2. **Security Measures**:
-   - Proper design of VPC and subnets
-   - Access control using security groups
-   - Implementation of the principle of least privilege for IAM roles and policies
+- Automatic deployment of Streamlit applications using AWS ECS Fargate
+- Infrastructure as Code using Terraform
+- Secure network configuration and load balancing
+- Logging with CloudWatch
 
-3. **Monitoring and Operation**:
-   - Log management with CloudWatch
-   - Alert and metric configuration
-   - Auto-scaling functionality
 
 ## 🔧 How to Use
 
@@ -136,25 +120,27 @@ terraform apply
 │  ├─ variables.tf     # Variable definitions
 │  ├─ whitelist.csv    # IP whitelist
 ├─ app.py              # Streamlit application
-├─ README.md
 ├─ requirements.txt
+├─ README.md
 ```
 
 ## 🌿 Configuration Customization
 
-### Example `terraform.tfvars` Configuration:
+### `terraform.tfvars` Example:
 ```hcl
 aws_region      = "ap-northeast-1"
 project_name    = "bolt-oscar-app"
 vpc_cidr        = "10.0.0.0/16"
-container_image = "your-docker-image:latest"
+container_image = "makisunwood/bolt:latest"
+# container_image = "498218886114.dkr.ecr.ap-northeast-1.amazonaws.com/neko-neko-ai-app:latest"
 task_cpu        = "256"
 task_memory     = "512"
 app_count       = 1
 ```
 
-### IP Whitelist Configuration:
-You can manage the IP addresses allowed access by editing `whitelist.csv`.
+### `whitelist.csv` Configuration:
+Manage IP addresses allowed access by editing `whitelist.csv`.
+
 
 ## 🐈 Architecture
 
@@ -175,7 +161,7 @@ graph TB
     end
 ```
 
-## 🤝 Contribution
+## 🤝 Contributions
 
 1. Fork this repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -190,9 +176,8 @@ bolt.Oscar-aws is released under the [MIT License](LICENSE).
 ## 🙏 Acknowledgements
 
 - Thanks to the [Bolt.new](https://github.com/stackblitz/bolt.new) team
-- Inspiration for Terraform module development was drawn from the AWS community
+- Inspired by the AWS community for Terraform module development
 
 ---
 
 Achieve rapid AWS deployment of Bolt.new with bolt.Oscar-aws!
-```
