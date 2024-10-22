@@ -131,8 +131,8 @@ resource "aws_ecs_task_definition" "app" {
       image = var.container_image
       portMappings = [
         {
-          containerPort = 8501
-          hostPort      = 8501
+          containerPort = 5173
+          hostPort      = 5173
         }
       ]
       logConfiguration = {
@@ -184,8 +184,8 @@ resource "aws_security_group" "ecs_tasks" {
 
   ingress {
     description     = "Allow inbound traffic from ALB"
-    from_port       = 8501
-    to_port         = 8501
+    from_port       = 5173
+    to_port         = 5173
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
@@ -230,7 +230,7 @@ resource "aws_lb_listener" "http" {
 # ターゲットグループの作成
 resource "aws_lb_target_group" "app" {
   name        = "${var.project_name}-tg"
-  port        = 8501
+  port        = 5173
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
   target_type = "ip"
@@ -267,7 +267,7 @@ resource "aws_ecs_service" "app" {
   load_balancer {
     target_group_arn = aws_lb_target_group.app.arn
     container_name   = "${var.project_name}-container"
-    container_port   = 8501
+    container_port   = 5173
   }
 
   depends_on = [aws_lb_listener.http]
