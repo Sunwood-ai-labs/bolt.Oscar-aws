@@ -1,5 +1,5 @@
 ---
-title: HarmonAI III
+title: bolt.Oscar
 emoji: 🦀
 colorFrom: green
 colorTo: blue
@@ -11,42 +11,42 @@ license: mit
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Sunwood-ai-labs/HarmonAI_III/refs/heads/main/docs/HarmonAI-III.png" width="100%">
-  <h1 align="center">🌟 HarmonAI III 🌟</h1>
+  <img src="docs/bolt.Oscar.png" width="100%">
+  <h1 align="center">🌟 bolt.Oscar 🌟</h1>
 </p>
 <p align="center">
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws">
     <img alt="GitHub Repo" src="https://img.shields.io/badge/github-HarmonAI__III-blue?logo=github">
   </a>
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/github/license/Sunwood-ai-labs/HarmonAI_III?color=green">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/Sunwood-ai-labs/bolt.Oscar-aws?color=green">
   </a>
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/stargazers">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/Sunwood-ai-labs/HarmonAI_III?style=social">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/stargazers">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/Sunwood-ai-labs/bolt.Oscar-aws?style=social">
   </a>
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/releases">
-    <img alt="GitHub release" src="https://img.shields.io/github/v/release/Sunwood-ai-labs/HarmonAI_III?include_prereleases&style=flat-square">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/releases">
+    <img alt="GitHub release" src="https://img.shields.io/github/v/release/Sunwood-ai-labs/bolt.Oscar-aws?include_prereleases&style=flat-square">
   </a>
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/issues">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/Sunwood-ai-labs/HarmonAI_III">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/issues">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/Sunwood-ai-labs/bolt.Oscar-aws">
   </a>
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/pulls">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/pulls">
     <img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square">
   </a>
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/network/members">
-    <img alt="GitHub forks" src="https://img.shields.io/github/forks/Sunwood-ai-labs/HarmonAI_III?style=social">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/network/members">
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/Sunwood-ai-labs/bolt.Oscar-aws?style=social">
   </a>
-  <a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/watchers">
-    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/Sunwood-ai-labs/HarmonAI_III?style=social">
+  <a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/watchers">
+    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/Sunwood-ai-labs/bolt.Oscar-aws?style=social">
   </a>
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Sunwood-ai-labs/HarmonAI_III">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/Sunwood-ai-labs/HarmonAI_III">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Sunwood-ai-labs/bolt.Oscar-aws">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/Sunwood-ai-labs/bolt.Oscar-aws">
 </p>
 <h2 align="center">
   ～ AI-Powered Automated Repository Management Template ～
 
-<a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/blob/main/README.md"><img src="https://img.shields.io/badge/ドキュメント-日本語-white.svg" alt="JA doc"/></a>
-<a href="https://github.com/Sunwood-ai-labs/HarmonAI_III/blob/main/docs/README.en.md"><img src="https://img.shields.io/badge/english-document-white.svg" alt="EN doc"></a>
+<a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/blob/main/README.md"><img src="https://img.shields.io/badge/ドキュメント-日本語-white.svg" alt="JA doc"/></a>
+<a href="https://github.com/Sunwood-ai-labs/bolt.Oscar-aws/blob/main/docs/README.en.md"><img src="https://img.shields.io/badge/english-document-white.svg" alt="EN doc"></a>
 </h2>
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python" alt="Python">
@@ -71,11 +71,11 @@ license: mit
 
 
 > [!IMPORTANT]
->  HarmonAI IIIは、[cline (旧:Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), [claude.ai](https://claude.ai/)を活用して開発されたテンプレートリポジトリです。リリースノート、README、コミットメッセージの大部分は、最新のAI技術を用いて生成されています。
+>  bolt.Oscarは、[cline (旧:Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), [claude.ai](https://claude.ai/)を活用して開発されたテンプレートリポジトリです。リリースノート、README、コミットメッセージの大部分は、最新のAI技術を用いて生成されています。
 
 ## 🚀 プロジェクト概要
 
-HarmonAI IIIは、AIRAとIRISを統合した革新的な**AIリポジトリスターターキット**です。このリポジトリは、LLMを活用したAI開発プロジェクトの構造とワークフローを提供し、開発者の作業効率を劇的に向上させることを目的としています。バージョン: `v1.3.0`
+bolt.Oscarは、AIRAとIRISを統合した革新的な**AIリポジトリスターターキット**です。このリポジトリは、LLMを活用したAI開発プロジェクトの構造とワークフローを提供し、開発者の作業効率を劇的に向上させることを目的としています。バージョン: `v1.3.0`
 
 
 ## 🆕 最新情報
@@ -125,7 +125,7 @@ aira --mode sourcesage commit  --config=.aira\config.dev.commit.yml --ss-model-n
 
 ## 🌿 環境構築
 
-HarmonAI IIIの環境を構築するには、以下の手順に従ってください：
+bolt.Oscarの環境を構築するには、以下の手順に従ってください：
 
 1. 仮想環境を作成します：
    ```bash
@@ -144,7 +144,7 @@ HarmonAI IIIの環境を構築するには、以下の手順に従ってくだ�
    pip install -r requirements.txt
    ```
 
-これらの手順により、HarmonAI IIIの開発環境が整います。
+これらの手順により、bolt.Oscarの開発環境が整います。
 
 
 ## 📚 主要コンポーネント
@@ -161,7 +161,7 @@ HarmonAI IIIの環境を構築するには、以下の手順に従ってくだ�
 
 ## 🤝 コラボレーターの自動招待
 
-HarmonAI IIIには、GitHubリポジトリにコラボレーターを自動で招待するスクリプトが含まれています。以下の手順で使用できます：
+bolt.Oscarには、GitHubリポジトリにコラボレーターを自動で招待するスクリプトが含まれています。以下の手順で使用できます：
 
 1. `.env` ファイルを作成し、必要なトークンを設定します：
    ```
@@ -178,7 +178,7 @@ HarmonAI IIIには、GitHubリポジトリにコラボレーターを自動で�
 
 2. 以下のコマンドを実行してコラボレーターを招待します：
    ```bash
-   python .github/github_add_collaborator.py Sunwood-ai-labs/HarmonAI_III username_to_invite
+   python .github/github_add_collaborator.py Sunwood-ai-labs/bolt.Oscar-aws username_to_invite
    ```
 
    `username_to_invite` は招待したいGitHubユーザー名に置き換えてください。
@@ -201,7 +201,7 @@ HarmonAI IIIには、GitHubリポジトリにコラボレーターを自動で�
 
 graph LR
     A[開始] --> B[リポジトリの構想とネーミング]
-    B -->|人間が実施| C[HarmonAI IIIによる<br>リポジトリ初期化]
+    B -->|人間が実施| C[bolt.Oscarによる<br>リポジトリ初期化]
     C -->|自動化| D[開発作業]
     D -->|人間が実施| E[AIRAによる<br>コミット自動化]
     E --> H[IRISによる<br>リリースノート作成]
@@ -221,16 +221,16 @@ graph LR
 
 ## 🤝 コントリビューション
 
-HarmonAI IIIは、オープンソースプロジェクトとしてコミュニティからの貢献を歓迎しています。バグ報告、機能リクエスト、プルリクエストを通じて、このテンプレートリポジトリの改善にご協力ください。
+bolt.Oscarは、オープンソースプロジェクトとしてコミュニティからの貢献を歓迎しています。バグ報告、機能リクエスト、プルリクエストを通じて、このテンプレートリポジトリの改善にご協力ください。
 
 ## 📄 ライセンス
 
-HarmonAI IIIは、[MITライセンス](LICENSE)の下で公開されています。
+bolt.Oscarは、[MITライセンス](LICENSE)の下で公開されています。
 
 ## 🙏 謝辞
 
-HarmonAI IIIの開発にあたり、多くのオープンソースプロジェクトからインスピレーションを得ています。特に、AIRAとIRISの開発者の皆様に深く感謝申し上げます。iris-s-coon、Maki様にも感謝いたします。
+bolt.Oscarの開発にあたり、多くのオープンソースプロジェクトからインスピレーションを得ています。特に、AIRAとIRISの開発者の皆様に深く感謝申し上げます。iris-s-coon、Maki様にも感謝いたします。
 
 ---
 
-HarmonAI IIIは、AI駆動の開発プロセスを実現する優れたスターターキットです。このテンプレートを基に、革新的なAIプロジェクトの開発を始めましょう！
+bolt.Oscarは、AI駆動の開発プロセスを実現する優れたスターターキットです。このテンプレートを基に、革新的なAIプロジェクトの開発を始めましょう！
