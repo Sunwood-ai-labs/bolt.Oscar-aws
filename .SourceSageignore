@@ -65,3 +65,14 @@ content.md
 docs
 .github
 .venv
+
+.terraform.lock.hcl
+terraform.tfstate.backup
+poetry.lock
+plan.json
+plan.out
+.terraform
+sandbox/s03_ec2_aws_visual/terraform_visualization_prompt.md
+diagrams_docs.html
+terraform_visualization_prompt.md
+terraform.tfstate
