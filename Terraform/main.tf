@@ -241,7 +241,7 @@ resource "aws_lb_target_group" "app" {
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
-    path                = "/_stcore/health"
+    path                = "/"  # /_stcore/health から / に変更
     unhealthy_threshold = "2"
   }
 
