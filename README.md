@@ -110,6 +110,34 @@ terraform plan
 terraform apply
 ```
 
+## 🔄 アプリケーションの更新
+
+### Dockerイメージの更新手順
+
+1. ローカルでDockerイメージを更新・ビルドします:
+```bash
+docker build -t makisunwood/bolt:latest .
+```
+
+2. DockerHubにプッシュします:
+```bash
+docker push makisunwood/bolt:latest
+```
+
+3. ECS Serviceを更新して新しいイメージをデプロイします:
+```bash
+aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app-service --force-new-deployment --region ap-northeast-1
+```
+
+> [!CAUTION]
+> プロダクション環境では、`:latest`タグの代わりに具体的なバージョンタグ（例：`v1.0.0`）を使用することをお勧めします。
+
+### 更新の確認方法
+
+- AWS管理コンソールのECS > クラスター > サービスから、デプロイの進行状況を確認できます
+- CloudWatchログで新しいタスクのログを確認できます
+
+
 ## 📦 ディレクトリ構成
 
 ```plaintext
