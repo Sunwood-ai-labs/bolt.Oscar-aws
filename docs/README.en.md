@@ -59,22 +59,22 @@ license: mit
 </p>
 
 > [!IMPORTANT]
->  bolt.Oscar is a repository developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  Most of the release notes, README, and commit messages were generated using the latest AI technology.
+>  bolt.Oscar is a repository developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  Most of the release notes, README, and commit messages were generated using the latest AI technologies.
 
 ## 🚀 Project Overview
 
-bolt.Oscar-aws is an infrastructure automation template for rapidly deploying the AI-driven development environment, Bolt.new, on AWS. This repository uses Terraform to provision AWS resources and deploys a Streamlit application on ECS Fargate. Version 0.1.0 automates the provisioning of AWS resources and the deployment of the Streamlit application.
+bolt.Oscar-aws is an infrastructure automation template for rapidly deploying the AI-driven development environment Bolt.new on AWS. This repository uses Terraform to provision AWS resources and deploys a Streamlit application on ECS Fargate. Version 0.1.0 automates the provisioning of AWS resources and the deployment of the Streamlit application.
 
 
 ## 🆕 Latest News
 
-- 🎉 **v0.1.0 Release**: Added automatic deployment of Streamlit applications using AWS ECS Fargate.  It automatically creates and configures VPC, subnets, internet gateway, security groups, ALB, ECS cluster, ECS service, and task definitions using Terraform. `app.py` is the entry point for the Streamlit application, and `requirements.txt` lists the necessary libraries.  `whitelist.csv` specifies the IP addresses allowed to access the ALB, and `terraform.tfvars` allows customization of settings such as AWS region, project name, and container image. A CloudWatch log group is created to monitor application logs.
+- 🎉 **v0.1.0 Release**: Added automatic deployment of Streamlit applications using AWS ECS Fargate.  It automatically creates and configures VPC, subnets, internet gateway, security groups, ALB, ECS cluster, ECS service, and task definitions using Terraform. `app.py` is the entry point for the Streamlit application, and `requirements.txt` lists the necessary libraries.  You can specify the IP addresses allowed to access the ALB in `whitelist.csv`, and customize settings such as the AWS region, project name, and container image in `terraform.tfvars`. A CloudWatch log group is created to monitor application logs.
 
 
 ## ✨ Main Features
 
 - Automatic deployment of Streamlit applications using AWS ECS Fargate
-- Infrastructure as Code using Terraform
+- Infrastructure as Code with Terraform
 - Secure network configuration and load balancing
 - Logging with CloudWatch
 
@@ -84,7 +84,7 @@ bolt.Oscar-aws is an infrastructure automation template for rapidly deploying th
 ### Prerequisites
 - AWS CLI installed and configured
 - Terraform installed
-- Docker environment prepared
+- Docker environment set up
 
 ### Deployment Steps
 
@@ -110,13 +110,41 @@ terraform plan
 terraform apply
 ```
 
+## 🔄 Application Updates
+
+### Updating the Docker Image
+
+1. Update and build the Docker image locally:
+```bash
+docker build -t makisunwood/bolt:latest .
+```
+
+2. Push to DockerHub:
+```bash
+docker push makisunwood/bolt:latest
+```
+
+3. Update the ECS service to deploy the new image:
+```bash
+aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app-service --force-new-deployment --region ap-northeast-1
+```
+
+> [!CAUTION]
+> In a production environment, it is recommended to use a specific version tag (e.g., `v1.0.0`) instead of the `:latest` tag.
+
+### How to check for updates
+
+- You can check the deployment progress from the AWS Management Console, ECS > Clusters > Services.
+- You can check the logs of the new task in CloudWatch logs.
+
+
 ## 📦 Directory Structure
 
 ```plaintext
 ├─ Terraform/
 │  ├─ main.tf          # Main Terraform configuration
 │  ├─ outputs.tf       # Output value definitions
-│  ├─ terraform.tfvars # Variable value settings
+│  ├─ terraform.tfvars # Variable settings
 │  ├─ variables.tf     # Variable definitions
 │  ├─ whitelist.csv    # IP whitelist
 ├─ app.py              # Streamlit application
@@ -126,7 +154,7 @@ terraform apply
 
 ## 🌿 Configuration Customization
 
-### `terraform.tfvars` Example:
+### Example `terraform.tfvars` settings:
 ```hcl
 aws_region      = "ap-northeast-1"
 project_name    = "bolt-oscar-app"
@@ -138,8 +166,8 @@ task_memory     = "512"
 app_count       = 1
 ```
 
-### `whitelist.csv` Configuration:
-Manage IP addresses allowed access by editing `whitelist.csv`.
+### `whitelist.csv` Settings:
+You can manage the IP addresses allowed access by editing `whitelist.csv`.
 
 
 ## 🐈 Architecture
@@ -176,7 +204,7 @@ bolt.Oscar-aws is released under the [MIT License](LICENSE).
 ## 🙏 Acknowledgements
 
 - Thanks to the [Bolt.new](https://github.com/stackblitz/bolt.new) team
-- Inspired by the AWS community for Terraform module development
+- Inspired by the AWS community in developing Terraform modules
 
 ---
 
