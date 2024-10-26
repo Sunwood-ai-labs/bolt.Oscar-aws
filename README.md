@@ -63,20 +63,21 @@ license: mit
 
 ## 🚀 プロジェクト概要
 
-bolt.Oscar-awsは、AI駆動の開発環境であるBolt.newをAWS上で迅速に展開するためのインフラストラクチャ自動化テンプレートです。このリポジトリは、Terraformを用いてAWSリソースのプロビジョニングを行い、ECS Fargate上でStreamlitアプリケーションをデプロイします。  バージョン0.1.0では、AWSリソースのプロビジョニングとStreamlitアプリケーションのデプロイを自動化します。
+bolt.Oscar-awsは、AI駆動の開発環境であるBolt.newをAWS上で迅速に展開するためのインフラストラクチャ自動化テンプレートです。このリポジトリは、Terraformを用いてAWSリソースのプロビジョニングを行い、ECS Fargate上でStreamlitアプリケーションをデプロイします。  バージョン 0.2.1 では、ECRを使用したFargateイメージ更新スクリプトの追加、HTTPS化とWebSocket対応、READMEの改善、セキュリティ強化などが行われました。
 
 
 ## 🆕 最新情報
 
-- 🎉 **v0.1.0リリース**: AWS ECS Fargateを使用したStreamlitアプリケーションの自動デプロイ機能を追加しました。Terraformを用いてVPC、サブネット、インターネットゲートウェイ、セキュリティグループ、ALB、ECSクラスター、ECSサービス、タスク定義などを自動的に作成・設定します。`app.py`はStreamlitアプリケーションのエントリーポイント、`requirements.txt`には必要なライブラリがリストアップされています。`whitelist.csv`でALBへのアクセスを許可するIPアドレスを指定し、`terraform.tfvars`でAWSリージョン、プロジェクト名、コンテナイメージなどの設定をカスタマイズできます。CloudWatchロググループが作成され、アプリケーションログを監視できます。
+- 🎉 **v0.2.1 リリース**: ECRを使用したFargateイメージ更新スクリプト、HTTPS化とWebSocket対応、READMEの改善、セキュリティ強化を行いました。
 
 
 ## ✨ 主な機能
 
 - AWS ECS Fargateを使用したStreamlitアプリケーションの自動デプロイ
 - Terraformによるインフラストラクチャのコード化
-- セキュアなネットワーク構成とロードバランシング
+- セキュアなネットワーク構成とロードバランシング(HTTPS, WebSocket対応)
 - CloudWatchによるロギング
+- ECRを使用したFargateイメージの自動更新
 
 
 ## 🔧 使用方法
@@ -124,7 +125,9 @@ docker build -t makisunwood/bolt:latest .
 docker push makisunwood/bolt:latest
 ```
 
-3. ECS Serviceを更新して新しいイメージをデプロイします:
+3.  **または**:  `Terraform/script/update-fargate-image.ps1` スクリプトを実行してECR経由で更新します。(AWS認証情報が必要です)
+
+4. ECS Serviceを更新して新しいイメージをデプロイします:
 ```bash
 aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app-service --force-new-deployment --region ap-northeast-1
 ```
@@ -147,6 +150,7 @@ aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app
 │  ├─ terraform.tfvars # 変数値の設定
 │  ├─ variables.tf     # 変数の定義
 │  ├─ whitelist.csv    # IPホワイトリスト
+│  └─ script/          # Fargateイメージ更新スクリプト
 ├─ app.py              # Streamlitアプリケーション
 ├─ requirements.txt
 ├─ README.md
@@ -161,8 +165,8 @@ project_name    = "bolt-oscar-app"
 vpc_cidr        = "10.0.0.0/16"
 container_image = "makisunwood/bolt:latest"
 # container_image = "498218886114.dkr.ecr.ap-northeast-1.amazonaws.com/neko-neko-ai-app:latest"
-task_cpu        = "256"
-task_memory     = "512"
+task_cpu        = "1024"    # 1 vCPU
+task_memory     = "2048"    # 2GB
 app_count       = 1
 ```
 
@@ -205,6 +209,7 @@ bolt.Oscar-awsは、[MITライセンス](LICENSE)の下で公開されていま�
 
 - [Bolt.new](https://github.com/stackblitz/bolt.new) チームに感謝いたします
 - Terraformモジュールの開発にあたり、AWSコミュニティからインスピレーションを得ました
+- iris-s-coon氏とMaki氏に貢献への感謝を申し上げます。
 
 ---
 
