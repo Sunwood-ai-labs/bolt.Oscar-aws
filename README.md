@@ -140,7 +140,7 @@ aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app
 
 ## 📦 ディレクトリ構成
 
-```plaintext
+```bash
 ├─ Terraform/
 │  ├─ main.tf          # メインのTerraform設定
 │  ├─ outputs.tf       # 出力値の定義
