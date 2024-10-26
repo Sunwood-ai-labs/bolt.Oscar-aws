@@ -14,10 +14,69 @@ locals {
   ]
 }
 
-# AWSプロバイダーの設定
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"  # バージョンは適宜調整してください
+    }
+  }
+}
+
+# メインリージョン用のプロバイダー
 provider "aws" {
   region = var.aws_region
 }
+
+# us-east-1リージョン用のプロバイダー（ACM証明書用）
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+}
+
+# ACM証明書の作成
+resource "aws_acm_certificate" "cert" {
+  domain_name       = "sunwood-ai-labs.click"
+  validation_method = "DNS"
+
+  tags = {
+    Name = "${var.project_name}-cert"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# Route 53ゾーンの参照
+data "aws_route53_zone" "main" {
+  name = "sunwood-ai-labs.click"
+}
+
+# 証明書の検証用DNSレコード
+resource "aws_route53_record" "cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = data.aws_route53_zone.main.zone_id
+}
+
+# 証明書の検証完了を待機
+resource "aws_acm_certificate_validation" "cert" {
+  certificate_arn         = aws_acm_certificate.cert.arn
+  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
+}
+
 
 # VPCの作成
 resource "aws_vpc" "main" {
@@ -123,7 +182,7 @@ resource "aws_ecs_task_definition" "app" {
   cpu                      = var.task_cpu
   memory                   = var.task_memory
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
-  task_role_arn            = aws_iam_role.ecs_task_role.arn  # 追加
+  task_role_arn           = aws_iam_role.ecs_task_role.arn
 
   container_definitions = jsonencode([
     {
@@ -131,8 +190,26 @@ resource "aws_ecs_task_definition" "app" {
       image = var.container_image
       portMappings = [
         {
-          containerPort = 5173
-          hostPort      = 5173
+          containerPort = 8788
+          hostPort      = 8788
+        }
+      ]
+      environment = [
+        {
+          name  = "CROSS_ORIGIN_OPENER_POLICY"
+          value = "same-origin"
+        },
+        {
+          name  = "CROSS_ORIGIN_EMBEDDER_POLICY"
+          value = "require-corp"
+        },
+        {
+          name  = "DISABLE_SECURITY_CHECKS"
+          value = "true"
+        },
+        {
+          name  = "DISABLE_CROSS_ORIGIN_CHECKS"
+          value = "true"
         }
       ]
       logConfiguration = {
@@ -184,8 +261,17 @@ resource "aws_security_group" "ecs_tasks" {
 
   ingress {
     description     = "Allow inbound traffic from ALB"
-    from_port       = 5173
-    to_port         = 5173
+    from_port       = 8788
+    to_port         = 8788
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+
+  # WebSocketsのためのポート追加
+  ingress {
+    description     = "Allow WebSocket connections"
+    from_port       = 8080
+    to_port         = 8080
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
@@ -215,11 +301,14 @@ resource "aws_lb" "main" {
   }
 }
 
-# ALBリスナーの作成
-resource "aws_lb_listener" "http" {
+
+# HTTPSリスナーの作成（既存のHTTPリスナーを置き換え）
+resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.main.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate.cert.arn
 
   default_action {
     type             = "forward"
@@ -227,29 +316,67 @@ resource "aws_lb_listener" "http" {
   }
 }
 
+
+# HTTPからHTTPSへのリダイレクト
+resource "aws_lb_listener" "http" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+# カスタムヘッダールールの更新（HTTPSリスナーに対して）
+resource "aws_lb_listener_rule" "headers" {
+  listener_arn = aws_lb_listener.https.arn  # HTTPSリスナーに変更
+  priority     = 1
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.app.arn
+  }
+
+  condition {
+    path_pattern {
+      values = ["/*"]
+    }
+  }
+}
+
 # ターゲットグループの作成
 resource "aws_lb_target_group" "app" {
   name        = "${var.project_name}-tg"
-  port        = 5173
+  port        = 8788
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
   target_type = "ip"
 
   health_check {
     healthy_threshold   = "3"
-    interval            = "30"
-    protocol            = "HTTP"
-    matcher             = "200"
-    timeout             = "3"
-    path                = "/"  # /_stcore/health から / に変更
+    interval           = "30"
+    protocol           = "HTTP"
+    matcher            = "200"
+    timeout            = "3"
+    path               = "/"
     unhealthy_threshold = "2"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   tags = {
     Name = "${var.project_name}-tg"
   }
 }
-
 # ECSサービスの作成
 resource "aws_ecs_service" "app" {
   name            = "${var.project_name}-service"
@@ -261,16 +388,24 @@ resource "aws_ecs_service" "app" {
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]
     subnets          = aws_subnet.public[*].id
-    assign_public_ip = true  # パブリックIPの割り当てを確認
+    assign_public_ip = true
   }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.app.arn
     container_name   = "${var.project_name}-container"
-    container_port   = 5173
+    container_port   = 8788
   }
 
-  depends_on = [aws_lb_listener.http]
+  depends_on = [
+    aws_lb_listener.http,
+    aws_lb_listener_rule.headers
+  ]
+
+  # 重要: サービスを更新する前にECSタスクを0にスケールダウン
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # ECS実行ロールの作成
