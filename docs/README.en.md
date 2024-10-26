@@ -59,24 +59,25 @@ license: mit
 </p>
 
 > [!IMPORTANT]
->  bolt.Oscar is a repository developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  Most of the release notes, README, and commit messages were generated using the latest AI technology.
+>  bolt.Oscar is developed using [cline (formerly Claude Dev)](https://github.com/clinebot/cline), [SourceSage](https://github.com/Sunwood-ai-labs/SourceSage), and [claude.ai](https://claude.ai/).  Most of the release notes, README, and commit messages were generated using the latest AI technologies.
 
 ## 🚀 Project Overview
 
-bolt.Oscar-aws is an infrastructure automation template for quickly deploying the AI-driven development environment Bolt.new on AWS. This repository uses Terraform to provision AWS resources and deploys a Streamlit application on ECS Fargate. Version 0.1.0 automates the provisioning of AWS resources and the deployment of the Streamlit application.
+bolt.Oscar-aws is an infrastructure automation template for rapidly deploying the AI-driven development environment Bolt.new on AWS. This repository uses Terraform to provision AWS resources and deploys a Streamlit application on ECS Fargate. Version 0.2.1 includes additions such as an ECR-based Fargate image update script, HTTPS and WebSocket support, README improvements, and enhanced security.
 
 
 ## 🆕 Latest News
 
-- 🎉 **v0.1.0 Release**: Added automatic deployment of Streamlit applications using AWS ECS Fargate.  It automatically creates and configures VPC, subnets, internet gateways, security groups, ALB, ECS cluster, ECS service, and task definitions using Terraform. `app.py` is the entry point for the Streamlit application, and `requirements.txt` lists the necessary libraries.  You can specify the IP addresses allowed to access the ALB in `whitelist.csv`, and customize settings such as AWS region, project name, and container image in `terraform.tfvars`. A CloudWatch log group is created to monitor application logs.
+- 🎉 **v0.2.1 Release**: Added an ECR-based Fargate image update script, HTTPS and WebSocket support, improved README, and enhanced security.
 
 
-## ✨ Main Features
+## ✨ Key Features
 
-- Automatic deployment of Streamlit applications using AWS ECS Fargate
-- Infrastructure as Code using Terraform
-- Secure network configuration and load balancing
+- Automated deployment of Streamlit applications using AWS ECS Fargate
+- Infrastructure as Code with Terraform
+- Secure network configuration and load balancing (HTTPS, WebSocket support)
 - Logging with CloudWatch
+- Automatic Fargate image updates using ECR
 
 
 ## 🔧 How to Use
@@ -84,7 +85,7 @@ bolt.Oscar-aws is an infrastructure automation template for quickly deploying th
 ### Prerequisites
 - AWS CLI installed and configured
 - Terraform installed
-- Docker environment prepared
+- Docker environment set up
 
 ### Deployment Steps
 
@@ -100,7 +101,7 @@ cd Terraform
 terraform init
 ```
 
-3. Check the configuration:
+3. Review the configuration:
 ```bash
 terraform plan
 ```
@@ -112,7 +113,7 @@ terraform apply
 
 ## 🔄 Application Updates
 
-### Updating the Docker Image
+### Docker Image Update Procedure
 
 1. Update and build the Docker image locally:
 ```bash
@@ -124,7 +125,9 @@ docker build -t makisunwood/bolt:latest .
 docker push makisunwood/bolt:latest
 ```
 
-3. Update the ECS Service to deploy the new image:
+3. **Or**: Run the `Terraform/script/update-fargate-image.ps1` script to update via ECR. (AWS credentials required)
+
+4. Update the ECS service to deploy the new image:
 ```bash
 aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app-service --force-new-deployment --region ap-northeast-1
 ```
@@ -134,8 +137,8 @@ aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app
 
 ### How to Check for Updates
 
-- You can check the deployment progress from the AWS Management Console, ECS > Clusters > Services.
-- You can check the logs of the new task in CloudWatch Logs.
+- You can check the deployment progress from the AWS Management Console: ECS > Clusters > Services.
+- Check the logs of the new task in CloudWatch logs.
 
 
 ## 📦 Directory Structure
@@ -147,6 +150,7 @@ aws ecs update-service --cluster bolt-oscar-app-cluster --service bolt-oscar-app
 │  ├─ terraform.tfvars # Variable value settings
 │  ├─ variables.tf     # Variable definitions
 │  ├─ whitelist.csv    # IP whitelist
+│  └─ script/          # Fargate image update script
 ├─ app.py              # Streamlit application
 ├─ requirements.txt
 ├─ README.md
@@ -161,12 +165,12 @@ project_name    = "bolt-oscar-app"
 vpc_cidr        = "10.0.0.0/16"
 container_image = "makisunwood/bolt:latest"
 # container_image = "498218886114.dkr.ecr.ap-northeast-1.amazonaws.com/neko-neko-ai-app:latest"
-task_cpu        = "256"
-task_memory     = "512"
+task_cpu        = "1024"    # 1 vCPU
+task_memory     = "2048"    # 2GB
 app_count       = 1
 ```
 
-### `whitelist.csv` Settings:
+### `whitelist.csv` settings:
 You can manage the IP addresses allowed access by editing `whitelist.csv`.
 
 
@@ -179,7 +183,7 @@ graph TB
     C --> D[Task Definition]
     D --> E[Container]
     E --> F[Streamlit App]
-
+    
     subgraph VPC
     B
     C
@@ -204,9 +208,9 @@ bolt.Oscar-aws is released under the [MIT License](LICENSE).
 ## 🙏 Acknowledgements
 
 - Thanks to the [Bolt.new](https://github.com/stackblitz/bolt.new) team
-- Inspired by the AWS community in developing Terraform modules
+- Inspiration for Terraform module development was drawn from the AWS community.
+- Gratitude to iris-s-coon and Maki for their contributions.
 
 ---
 
 Achieve rapid AWS deployment of Bolt.new with bolt.Oscar-aws!
-```
